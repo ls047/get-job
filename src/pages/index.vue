@@ -9,14 +9,14 @@
       <div class="mt-8">
         <!-- Personal Details -->
         <div v-if="currentStep === 0">
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-xl font-semibold mb-6">Personal Details</h2>
+          <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+            <h2 class="text-lg sm:text-xl font-semibold mb-4 sm:mb-6">Personal Details</h2>
             
             <!-- Photo Upload -->
-            <div class="mb-6">
+            <div class="mb-4 sm:mb-6">
               <FormLabel>Profile Photo</FormLabel>
-              <div class="flex items-center gap-4">
-                <div class="relative w-32 h-32 rounded-full overflow-hidden border-2 border-gray-200">
+              <div class="flex items-center gap-2 sm:gap-4">
+                <div class="relative w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden border-2 border-gray-200">
                   <img 
                     v-if="formData.personal.photo" 
                     :src="formData.personal.photo" 
@@ -58,53 +58,58 @@
               </div>
             </div>
 
-            <div class="space-y-4">
-              <FormItem>
+            <div class="space-y-3 sm:space-y-4 w-full">
+              <FormItem class="w-full">
                 <FormLabel>Full Name</FormLabel>
                 <FormControl>
                   <Input 
                     v-model="formData.personal.fullName"
                     type="text"
+                    class="h-9 sm:h-10 w-full"
                   />
                 </FormControl>
               </FormItem>
 
-              <FormItem>
+              <FormItem class="w-full">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input 
                     v-model="formData.personal.email"
                     type="email"
+                    class="h-9 sm:h-10 w-full"
                   />
                 </FormControl>
               </FormItem>
 
-              <FormItem>
+              <FormItem class="w-full">
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
                   <Input 
                     v-model="formData.personal.phone"
                     type="tel"
+                    class="h-9 sm:h-10 w-full"
                   />
                 </FormControl>
               </FormItem>
 
-              <FormItem>
+              <FormItem class="w-full">
                 <FormLabel>Location</FormLabel>
                 <FormControl>
                   <Input 
                     v-model="formData.personal.location"
                     type="text"
+                    class="h-9 sm:h-10 w-full"
                   />
                 </FormControl>
               </FormItem>
 
-              <FormItem>
+              <FormItem class="w-full">
                 <FormLabel>Website</FormLabel>
                 <FormControl>
                   <Input 
                     v-model="formData.personal.website"
                     type="url"
+                    class="h-9 sm:h-10 w-full"
                   />
                 </FormControl>
               </FormItem>
@@ -126,7 +131,7 @@
 
         <!-- Work Experience -->
         <div v-if="currentStep === 2">
-          <div class="bg-white p-6 rounded-lg shadow-md">
+          <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
             <div class="flex justify-between items-center mb-6">
               <h2 class="text-xl font-semibold">Work Experience</h2>
               <button 
@@ -137,49 +142,47 @@
               </button>
             </div>
             
-            <div class="space-y-6">
+            <div class="space-y-4 sm:space-y-6">
               <div 
                 v-for="(exp, index) in formData.experience" 
                 :key="index"
-                class="p-4 border rounded-lg"
+                class="p-3 sm:p-4 border rounded-lg w-full"
               >
-                <div class="flex justify-between items-start mb-4">
-                  <div class="flex-grow space-y-4">
+                <div class="flex-grow space-y-3 sm:space-y-4 w-full">
+                  <input 
+                    v-model="exp.title"
+                    placeholder="Job Title"
+                    class="w-full p-2 border rounded-md h-9 sm:h-10"
+                  />
+                  <input 
+                    v-model="exp.company"
+                    placeholder="Company Name"
+                    class="w-full p-2 border rounded-md h-9 sm:h-10"
+                  />
+                  <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                     <input 
-                      v-model="exp.title"
-                      placeholder="Job Title"
-                      class="w-full p-2 border rounded-md"
+                      v-model="exp.startDate"
+                      type="date"
+                      class="w-full p-2 border rounded-md h-9 sm:h-10"
                     />
                     <input 
-                      v-model="exp.company"
-                      placeholder="Company Name"
-                      class="w-full p-2 border rounded-md"
+                      v-model="exp.endDate"
+                      type="date"
+                      class="w-full p-2 border rounded-md h-9 sm:h-10"
                     />
-                    <div class="flex gap-4">
-                      <input 
-                        v-model="exp.startDate"
-                        type="date"
-                        class="flex-1 p-2 border rounded-md"
-                      />
-                      <input 
-                        v-model="exp.endDate"
-                        type="date"
-                        class="flex-1 p-2 border rounded-md"
-                      />
-                    </div>
-                    <textarea 
-                      v-model="exp.description"
-                      placeholder="Job Description"
-                      class="w-full p-2 border rounded-md min-h-[100px]"
-                    ></textarea>
                   </div>
-                  <button 
-                    @click="removeExperience(index)"
-                    class="ml-4 text-red-500 hover:text-red-600"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button>
+                  <textarea 
+                    v-model="exp.description"
+                    placeholder="Job Description"
+                    class="w-full p-2 border rounded-md min-h-[80px] sm:min-h-[100px]"
+                  ></textarea>
                 </div>
+                <button 
+                  @click="removeExperience(index)"
+                  class="ml-4 text-red-500 hover:text-red-600"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
               </div>
             </div>
           </div>
@@ -202,10 +205,10 @@
               <div 
                 v-for="(edu, index) in formData.education" 
                 :key="index"
-                class="p-4 border rounded-lg"
+                class="p-4 border rounded-lg w-full"
               >
-                <div class="flex justify-between items-start mb-4">
-                  <div class="flex-grow space-y-4">
+                <div class="flex justify-between items-start mb-4 w-full">
+                  <div class="flex-grow space-y-4 w-full">
                     <input 
                       v-model="edu.degree"
                       placeholder="Degree"
@@ -216,16 +219,16 @@
                       placeholder="Institution"
                       class="w-full p-2 border rounded-md"
                     />
-                    <div class="flex gap-4">
+                    <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                       <input 
                         v-model="edu.startDate"
                         type="date"
-                        class="flex-1 p-2 border rounded-md"
+                        class="w-full p-2 border rounded-md"
                       />
                       <input 
                         v-model="edu.endDate"
                         type="date"
-                        class="flex-1 p-2 border rounded-md"
+                        class="w-full p-2 border rounded-md"
                       />
                     </div>
                     <textarea 
@@ -262,10 +265,10 @@
                 v-for="template in templates"
                 :key="template.id"
                 @click="selectedTemplate = template.id"
-                class="cursor-pointer relative rounded-lg overflow-hidden border-2 transition-all"
-                :class="selectedTemplate === template.id ? 'border-blue-500' : 'border-gray-200'"
+                class="cursor-pointer relative rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                :class="selectedTemplate === template.id ? 'border-blue-500 shadow-lg' : 'border-gray-200'"
               >
-                <img :src="template.preview" :alt="template.name" class="w-full aspect-[3/4] object-cover" />
+                <img :src="template.preview" class="w-full object-cover" />
                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
                   <span class="text-white font-medium">{{ template.name }}</span>
                 </div>
@@ -380,17 +383,17 @@ const templates = [
   {
     id: 'modern',
     name: 'Modern Clean',
-    preview: '/templates/modern.png'
+    preview: new URL('../assets/Modern clean.jpg', import.meta.url).href
   },
   {
     id: 'professional',
     name: 'Professional',
-    preview: '/templates/professional.png'
+    preview: new URL('../assets/Professional.jpg', import.meta.url).href
   },
   {
     id: 'creative',
     name: 'Creative',
-    preview: '/templates/creative.png'
+    preview: new URL('../assets/Creativ.jpg', import.meta.url).href
   }
 ];
 
