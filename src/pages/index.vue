@@ -265,12 +265,17 @@
                 v-for="template in templates"
                 :key="template.id"
                 @click="selectedTemplate = template.id"
-                class="cursor-pointer relative rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                class="cursor-pointer relative rounded-lg overflow-hidden border-2 transition-all duration-300 hover:shadow-xl group"
                 :class="selectedTemplate === template.id ? 'border-blue-500 shadow-lg' : 'border-gray-200'"
               >
-                <img :src="template.preview" class="w-full object-cover" />
-                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                  <span class="text-white font-medium">{{ template.name }}</span>
+                <img 
+                  :src="template.preview" 
+                  class="w-full object-cover transition-transform duration-300 group-hover:scale-105" 
+                />
+                <div class="absolute inset-0 flex items-center justify-center transition-colors duration-300 group-hover:bg-black/20">
+                  <div class="bg-black/60 px-4 py-2 rounded-md transform transition-all duration-300 group-hover:scale-110">
+                    <span class="text-white font-medium text-center">{{ template.name }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -339,7 +344,7 @@
             />
             <NextButton
               v-else
-              :text="'Create CV'"
+              :text="'Done!'"
               @click="finishAndEdit"
             />
           </div>
