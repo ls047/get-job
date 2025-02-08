@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Vue-Tailwind-ShadCN Starter Template
 
 ## Overview
@@ -155,3 +156,7 @@ For questions or help, feel free to reach out via GitHub Issues.
 ## 🌟 Show your support
 
 Give a ⭐️ if this project helped you!
+=======
+# get-job
+simple resume builder with some spices
+>>>>>>> 776bc2a498e4ee3141bcdbbba83562715b29697c
