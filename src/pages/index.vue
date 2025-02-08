@@ -283,27 +283,27 @@
         </div>
       </div>
 
-      <!-- Replace the Navigation section with this updated version -->
-      <div class="fixed bottom-6 left-0 right-0">
-        <div class="max-w-sm mx-auto px-2 md:max-w-4xl md:px-4">
-          <div class="bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-gray-100 p-2 md:p-4 flex items-center justify-between">
+      <!-- Bottom Navigation Bar -->
+      <div class="fixed bottom-2 sm:bottom-6 left-0 right-0">
+        <div class="max-w-sm mx-auto px-1 sm:px-2 md:max-w-4xl md:px-4">
+          <div class="bg-white/80 backdrop-blur-lg rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 p-1.5 sm:p-2 md:p-4 flex items-center justify-between">
             <Button
               v-if="currentStep > 0"
               type="button"
               variant="ghost"
               @click="prevStep"
-              class="min-w-[80px] md:min-w-[120px] group hover:bg-gray-100/80"
+              class="min-w-[60px] sm:min-w-[80px] md:min-w-[120px] group hover:bg-gray-100/80 text-xs sm:text-sm md:text-base"
             >
-              <i class="fas fa-chevron-left mr-2 text-sm group-hover:-translate-x-1 transition-transform"></i>
+              <i class="fas fa-chevron-left mr-1 sm:mr-2 text-xs sm:text-sm group-hover:-translate-x-1 transition-transform"></i>
               Previous
             </Button>
-            <div v-else class="min-w-[80px] md:min-w-[120px]"></div>
+            <div v-else class="min-w-[60px] sm:min-w-[80px] md:min-w-[120px]"></div>
 
             <!-- Step Indicators -->
-            <div class="flex items-center gap-1 md:gap-2">
+            <div class="flex items-center gap-0.5 sm:gap-1 md:gap-2">
               <!-- Start point -->
               <div 
-                class="w-1.5 h-1.5 rounded-full transition-all duration-300 md:w-2 md:h-2"
+                class="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300"
                 :class="currentStep === 0 ? 'bg-primary scale-125' : 'bg-primary/60'"
               ></div>
               
@@ -314,14 +314,14 @@
                 class="flex items-center"
               >
                 <div 
-                  class="w-4 h-0.5 mx-0.5 md:w-8 md:h-0.5 md:mx-1"
+                  class="w-2 sm:w-4 md:w-8 h-0.5 mx-0.5 sm:mx-1"
                   :class="[
                     index <= currentStep ? 'bg-primary/60' : 'bg-gray-200'
                   ]"
                 ></div>
                 <div 
                   v-if="index < steps.length - 1"
-                  class="w-1.5 h-1.5 rounded-full transition-all duration-300 md:w-2 md:h-2"
+                  class="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300"
                   :class="[
                     index + 1 === currentStep ? 'bg-primary scale-125' : 
                     index + 1 < currentStep ? 'bg-primary/60' : 'bg-gray-200'
@@ -331,7 +331,7 @@
 
               <!-- End point -->
               <div 
-                class="w-1.5 h-1.5 rounded-full transition-all duration-300 md:w-2 md:h-2"
+                class="w-1 h-1 sm:w-1.5 sm:h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300"
                 :class="currentStep === steps.length - 1 ? 'bg-primary scale-125' : 
                        currentStep >= steps.length - 1 ? 'bg-primary/60' : 'bg-gray-200'"
               ></div>
@@ -340,11 +340,13 @@
             <NextButton
               v-if="currentStep < steps.length - 1"
               :text="'Next'"
+              class="min-w-[60px] sm:min-w-[80px] md:min-w-[120px] text-xs sm:text-sm md:text-base"
               @click="nextStep"
             />
             <NextButton
               v-else
               :text="'Done!'"
+              class="min-w-[60px] sm:min-w-[80px] md:min-w-[120px] text-xs sm:text-sm md:text-base"
               @click="finishAndEdit"
             />
           </div>
