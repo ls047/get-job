@@ -273,8 +273,8 @@
                   class="w-full object-cover transition-transform duration-300 group-hover:scale-105" 
                 />
                 <div class="absolute inset-0 flex items-center justify-center transition-colors duration-300 group-hover:bg-black/20">
-                  <div class="bg-black/60 px-4 py-2 rounded-md transform transition-all duration-300 group-hover:scale-110">
-                    <span class="text-white font-medium text-center">{{ template.name }}</span>
+                  <div class="bg-black/60 px-2 rounded-md transform transition-all duration-300 group-hover:scale-110">
+                    <span class="text-white font-bold text-[0.5rem] md:lg text-center">{{ template.name }}</span>
                   </div>
                 </div>
               </div>
