@@ -431,6 +431,11 @@ onMounted(() => {
   if (savedStep !== undefined) {
     currentStep.value = savedStep;
   }
+
+  const savedData = localStorage.getItem('cvData');
+  if (!savedData && router.currentRoute.value.name === 'edit-cv') {
+    router.push('/');
+  }
 });
 
 watch([formData, currentStep], () => {
@@ -513,16 +518,26 @@ const prevStep = () => {
   }
 };
 
-const finishAndEdit = () => {
-  localStorage.setItem('cvData', JSON.stringify({
-    cvData: formData.value,
-    templateId: selectedTemplate.value,
-    lastUpdated: new Date().toISOString()
-  }));
-  
-  clearFormData();
-  
-  router.push({ name: 'edit-cv' });
+const finishAndEdit = async () => {
+  try {
+    // Save the data to localStorage
+    localStorage.setItem('cvData', JSON.stringify({
+      cvData: formData.value,
+      templateId: selectedTemplate.value,
+      lastUpdated: new Date().toISOString()
+    }));
+    
+    // Clear the form data
+    clearFormData();
+    
+    // Add console log for debugging
+    console.log('Navigating to edit-cv page...');
+    
+    // Use await to ensure navigation completes
+    await router.push('/edit-cv');
+  } catch (error) {
+    console.error('Navigation error:', error);
+  }
 };
 </script>
 
