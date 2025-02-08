@@ -22,7 +22,7 @@ const routes = [
   },
   {
     path: '/edit-cv',
-    name: 'EditCV',
+    name: 'edit-cv',
     component: EditCV
   }
 ]

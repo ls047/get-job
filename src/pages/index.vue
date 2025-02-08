@@ -520,7 +520,7 @@ const finishAndEdit = () => {
   
   clearFormData();
   
-  router.push('/edit-cv');
+  router.push({ name: 'edit-cv' });
 };
 </script>
 
