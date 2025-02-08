@@ -1,68 +1,66 @@
 <template>
-  <div class="min-h-screen bg-gray-100 p-4 sm:p-8">
+  <div class="min-h-screen bg-gray-100 p-8">
     <div class="max-w-7xl mx-auto">
       <!-- Top Bar -->
-      <div class="bg-white rounded-lg shadow-sm p-3 sm:p-4 mb-4 sm:mb-8">
-        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-          <div class="flex items-center gap-4">
-            <button 
-              @click="router.push('/')"
-              class="text-gray-600 hover:text-gray-800"
-            >
-              <i class="fas fa-arrow-left mr-2"></i>
-              Back
-            </button>
-            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Edit Your CV</h1>
-          </div>
+      <div class="bg-white rounded-lg shadow-sm p-2 md:p-4 mb-4 md:mb-8 flex justify-between items-center">
+        <div class="flex items-center gap-2 md:gap-4">
+          <button 
+            @click="router.push('/')"
+            class="text-gray-600 hover:text-gray-800 text-sm md:text-base"
+          >
+            <i class="fas fa-arrow-left mr-1 md:mr-2"></i>
+            Back
+          </button>
+          <h1 class="text-xl md:text-2xl font-bold text-gray-800">Edit Your CV</h1>
+        </div>
+        
+        <!-- Save & Export Options -->
+        <div class="flex gap-2 md:gap-4">
+          <button 
+            @click="printCV"
+            class="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1 md:py-2 text-sm md:text-base text-gray-700 hover:bg-gray-100 rounded-md"
+          >
+            <i class="fas fa-print"></i>
+            <span class="hidden md:inline">Print</span>
+          </button>
           
-          <!-- Save & Export Options -->
-          <div class="flex gap-2 sm:gap-4">
+          <div class="relative">
             <button 
-              @click="printCV"
-              class="flex items-center gap-2 px-3 sm:px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
+              @click="showExportOptions = !showExportOptions"
+              class="flex items-center gap-1 md:gap-2 px-2 md:px-4 py-1 md:py-2 text-sm md:text-base bg-blue-500 text-white rounded-md hover:bg-blue-600"
             >
-              <i class="fas fa-print"></i>
-              <span class="hidden sm:inline">Print</span>
+              <i class="fas fa-download"></i>
+              <span class="hidden md:inline">Export As</span>
             </button>
             
-            <div class="relative">
+            <div 
+              v-if="showExportOptions"
+              class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10"
+            >
               <button 
-                @click="showExportOptions = !showExportOptions"
-                class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                v-for="format in exportFormats" 
+                :key="format.id"
+                @click="exportCV(format.id)"
+                class="w-full px-4 py-2 text-left hover:bg-gray-100 first:rounded-t-md last:rounded-b-md flex items-center gap-2"
               >
-                <i class="fas fa-download"></i>
-                <span class="hidden sm:inline">Export As</span>
+                <i :class="format.icon"></i>
+                {{ format.name }}
               </button>
-              
-              <div 
-                v-if="showExportOptions"
-                class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10"
-              >
-                <button 
-                  v-for="format in exportFormats" 
-                  :key="format.id"
-                  @click="exportCV(format.id)"
-                  class="w-full px-4 py-2 text-left hover:bg-gray-100 first:rounded-t-md last:rounded-b-md flex items-center gap-2"
-                >
-                  <i :class="format.icon"></i>
-                  {{ format.name }}
-                </button>
-              </div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Main Content -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
         <!-- Editor Sidebar -->
-        <div class="lg:col-span-3 space-y-4 sm:space-y-6">
+        <div class="col-span-full md:col-span-3 space-y-6">
           <!-- Style Controls -->
-          <div class="bg-white rounded-lg shadow-sm p-4 sm:p-6">
+          <div class="bg-white rounded-lg shadow-sm p-6">
             <h2 class="text-lg font-semibold mb-4">Formatting</h2>
             
             <!-- Template Selection -->
-            <div class="mb-4 sm:mb-6">
+            <div class="mb-6">
               <label class="block text-sm font-medium text-gray-700 mb-2">
                 Template
               </label>
@@ -77,7 +75,7 @@
             </div>
 
             <!-- Colors -->
-            <div class="space-y-4 mb-4 sm:mb-6">
+            <div class="space-y-4 mb-6">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">
                   Primary Color
@@ -165,10 +163,10 @@
         </div>
 
         <!-- CV Editor & Preview -->
-        <div class="lg:col-span-9">
+        <div class="col-span-full md:col-span-9">
           <div 
             id="cv-preview"
-            class="bg-white rounded-lg shadow-lg p-4 sm:p-8 overflow-x-auto"
+            class="bg-white rounded-lg shadow-lg p-2 md:p-8  origin-top"
             :style="{
               fontFamily: styleOptions.fontFamily,
               fontSize: `${styleOptions.fontSize}px`,
@@ -187,6 +185,42 @@
               :cv-data="cvData"
             />
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Size Selection Dialog -->
+    <div 
+      v-if="showSizeDialog"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-lg p-6 max-w-sm w-full mx-4">
+        <h3 class="text-lg font-semibold mb-4">Choose Export Size</h3>
+        <p class="text-gray-600 mb-6">How would you like to export your CV?</p>
+        
+        <div class="flex flex-col gap-3">
+          <button
+            @click="exportWithSize(true)"
+            class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center justify-center gap-2"
+          >
+            <i class="fas fa-mobile-alt"></i>
+            Mobile Size
+          </button>
+          
+          <button
+            @click="exportWithSize(false)"
+            class="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 flex items-center justify-center gap-2"
+          >
+            <i class="fas fa-desktop"></i>
+            Desktop Size
+          </button>
+          
+          <button
+            @click="showSizeDialog = false"
+            class="w-full px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-md"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
@@ -276,6 +310,10 @@ const currentTemplate = computed(() => {
   return templateComponents[selectedTemplate.value] || ModernTemplate;
 });
 
+// Add new state for size selection dialog
+const showSizeDialog = ref(false);
+const selectedFormat = ref(null);
+
 // Methods
 const getLevelText = (level) => {
   const levels = {
@@ -334,9 +372,25 @@ const saveChanges = () => {
 };
 
 const exportCV = async (format) => {
+  selectedFormat.value = format;
+  showSizeDialog.value = true;
+  showExportOptions.value = false;
+};
+
+const exportWithSize = async (isMobileSize) => {
   const element = document.getElementById('cv-preview');
   
   try {
+    // Set temporary styles for export
+    const originalWidth = element.style.width;
+    const originalTransform = element.style.transform;
+    
+    if (isMobileSize) {
+      element.style.width = '390px'; // Standard mobile width
+    } else {
+      element.style.width = '1024px'; // Standard desktop width
+    }
+    
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
@@ -344,7 +398,11 @@ const exportCV = async (format) => {
       backgroundColor: '#ffffff'
     });
 
-    switch (format) {
+    // Restore original styles
+    element.style.width = originalWidth;
+    element.style.transform = originalTransform;
+
+    switch (selectedFormat.value) {
       case 'pdf':
         const pdf = new jsPDF({
           orientation: 'portrait',
@@ -358,8 +416,8 @@ const exportCV = async (format) => {
       case 'jpg':
       case 'png':
         const link = document.createElement('a');
-        link.download = `my-cv.${format}`;
-        link.href = canvas.toDataURL(`image/${format}`);
+        link.download = `my-cv.${selectedFormat.value}`;
+        link.href = canvas.toDataURL(`image/${selectedFormat.value}`);
         link.click();
         break;
     }
@@ -367,7 +425,7 @@ const exportCV = async (format) => {
     console.error('Export error:', error);
   }
   
-  showExportOptions.value = false;
+  showSizeDialog.value = false;
 };
 
 const printCV = () => {

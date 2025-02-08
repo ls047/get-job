@@ -1,12 +1,12 @@
 <template>
-  <div class="creative-template grid grid-cols-3 gap-8">
+  <div class="creative-template grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
     <!-- Sidebar -->
-    <div class="col-span-1 bg-gray-50 p-6 rounded-lg">
+    <div class="md:col-span-1 bg-gray-50 p-4 md:p-6 rounded-lg">
       <!-- Photo -->
       <div class="mb-6 flex flex-col items-center">
         <div 
           v-if="cvData.personal.photo" 
-          class="w-48 h-48 rounded-lg overflow-hidden shadow-lg mb-4 border-4"
+          class="w-32 md:w-48 h-32 md:h-48 rounded-lg overflow-hidden shadow-lg mb-4 border-4"
           :style="{ borderColor: 'var(--primary-color)' }"
         >
           <img 
@@ -15,7 +15,7 @@
             alt="Profile photo"
           />
         </div>
-        <h1 class="text-2xl font-bold text-center mb-2">{{ cvData.personal.fullName }}</h1>
+        <h1 class="text-xl md:text-2xl font-bold text-center mb-2">{{ cvData.personal.fullName }}</h1>
       </div>
 
       <!-- Contact Info -->
@@ -59,7 +59,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="col-span-2">
+    <div class="md:col-span-2">
       <!-- Summary -->
       <div class="mb-8" v-if="cvData.summary">
         <h2 class="text-2xl font-bold mb-4 text-primary">About Me</h2>

@@ -1,12 +1,12 @@
 <template>
   <div class="professional-template">
     <!-- Header with Photo -->
-    <div class="mb-8 border-b-4 pb-6" style="border-color: var(--primary-color)">
-      <div class="flex items-center gap-8">
+    <div class="mb-6 md:mb-8 border-b-4 pb-4 md:pb-6" style="border-color: var(--primary-color)">
+      <div class="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8">
         <!-- Photo -->
         <div 
           v-if="cvData.personal.photo" 
-          class="w-40 h-40 overflow-hidden flex-shrink-0 border-4"
+          class="w-32 h-32 md:w-40 md:h-40 overflow-hidden flex-shrink-0 border-4"
           :style="{ borderColor: 'var(--primary-color)' }"
         >
           <img 
@@ -17,9 +17,9 @@
         </div>
 
         <!-- Personal Info -->
-        <div class="flex-grow">
-          <h1 class="text-4xl font-bold mb-2">{{ cvData.personal.fullName }}</h1>
-          <div class="grid grid-cols-2 gap-2 text-gray-600">
+        <div class="flex-grow text-center md:text-left">
+          <h1 class="text-2xl md:text-4xl font-bold mb-2">{{ cvData.personal.fullName }}</h1>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm md:text-base text-gray-600">
             <span v-if="cvData.personal.email">
               <i class="fas fa-envelope mr-2"></i>{{ cvData.personal.email }}
             </span>
@@ -84,7 +84,7 @@
     <!-- Skills -->
     <div class="mb-8" v-if="cvData.skills?.length">
       <h2 class="text-2xl font-bold mb-4 text-primary uppercase">Skills</h2>
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
         <div v-for="skill in cvData.skills" :key="skill.name">
           <div class="flex justify-between items-center mb-1">
             <span class="font-medium">{{ skill.name }}</span>

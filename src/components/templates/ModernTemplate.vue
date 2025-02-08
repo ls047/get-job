@@ -1,11 +1,11 @@
 <template>
   <div class="modern-template">
     <!-- Personal Details with Photo -->
-    <div class="mb-8 flex items-start gap-8">
+    <div class="mb-6 md:mb-8 flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-8">
       <!-- Photo -->
       <div 
         v-if="cvData.personal.photo" 
-        class="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-2 border-gray-200"
+        class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden flex-shrink-0 border-2 border-gray-200"
       >
         <img 
           :src="cvData.personal.photo" 
@@ -15,9 +15,9 @@
       </div>
 
       <!-- Personal Info -->
-      <div class="flex-grow">
-        <h1 class="text-4xl font-bold mb-4">{{ cvData.personal.fullName }}</h1>
-        <div class="flex flex-wrap gap-4 text-gray-600">
+      <div class="flex-grow text-center md:text-left">
+        <h1 class="text-2xl md:text-4xl font-bold mb-2 md:mb-4">{{ cvData.personal.fullName }}</h1>
+        <div class="flex flex-col md:flex-row flex-wrap gap-2 md:gap-4 text-gray-600 text-sm md:text-base">
           <span v-if="cvData.personal.email">
             <i class="fas fa-envelope mr-2"></i>{{ cvData.personal.email }}
           </span>
@@ -71,7 +71,7 @@
     <!-- Skills -->
     <div class="mb-8" v-if="cvData.skills?.length">
       <h2 class="text-2xl font-bold mb-4 text-primary">Skills</h2>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div v-for="skill in cvData.skills" :key="skill.name" class="skill-item">
           <div class="flex justify-between items-center mb-1">
             <span class="font-medium">{{ skill.name }}</span>
